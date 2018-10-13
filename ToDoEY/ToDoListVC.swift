@@ -16,7 +16,7 @@ class ToDoListVC: UITableViewController {
 
     
     
-    let ArrayList = ["Buy Jacket", "Find Kayla", "Tufael"]
+   var ItemArray = ["Buy Jacket", "Find Kayla", "Tufael"]
 
     override func viewDidLoad() {
        
@@ -25,13 +25,13 @@ class ToDoListVC: UITableViewController {
     }
     //Mark - TableView Datas
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ArrayList.count
+        return ItemArray.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "toDo", for: indexPath)
         
-        cell.textLabel?.text = ArrayList[indexPath.row]
+        cell.textLabel?.text = ItemArray[indexPath.row]
        
         return cell
     }
@@ -53,7 +53,34 @@ class ToDoListVC: UITableViewController {
         
         
     }
-
+    @IBAction func addNewItem(_ sender: Any) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New ToDoEy Item", message: "", preferredStyle: .alert)
+       
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen once clicked add button
+            self.ItemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+       
+        alert.addTextField { (alertTextfield) in
+            alertTextfield.placeholder = "Create New Item"
+            textField = alertTextfield
+           
+        
+        
+           
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    
+    }
+    
 
 }
+
 
